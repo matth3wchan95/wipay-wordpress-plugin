@@ -4,7 +4,7 @@ An independent WooCommerce payment gateway that sends customers to WiPay's hoste
 
 ## Status
 
-Initial rebuild, version 1.0.0. This package has not been run through a WordPress/WooCommerce environment or WiPay sandbox. Keep it disabled for live payments until local code review and sandbox known-answer tests pass.
+Updated rebuild, version 1.0.1. The checkout request now uses JSON as shown in WiPay's current Payment Request examples. This package still needs a successful end-to-end sandbox transaction and callback verification before live use.
 
 ## Safety design
 
@@ -34,7 +34,7 @@ The endpoint host is selected from WiPay's documented country/environment map. T
 
 ## API behavior
 
-The plugin uses `POST https://{country-host}/plugins/payments/request`, with documented field names including `account_number`, `country_code`, `currency`, `environment`, `fee_structure`, `method`, `order_id`, `origin`, `response_url`, and `total`. Billing prefill uses `addr1`/`addr2`; no unsupported `company` or `addr_1`/`addr_2` fields are sent. WiPay's response is verified on the server using its documented MD5 formula and the original order total.
+The plugin uses `POST https://{country-host}/plugins/payments/request` with an `application/json` request body and `Accept: application/json`, matching WiPay's current examples. The endpoint and sandbox host mapping already matched the documentation. The request includes documented fields such as `account_number`, `country_code`, `currency`, `environment`, `fee_structure`, `method`, `order_id`, `origin`, `response_url`, and `total`. Billing prefill uses `addr1`/`addr2`; dependent `lname` and `addr2` values are omitted unless their required `fname` and `addr1` are present. WiPay's response is verified on the server using its documented MD5 formula and the original order total.
 
 ## Limits
 
@@ -53,3 +53,4 @@ GPL-2.0-or-later. See [LICENSE](LICENSE). Waypoint accepts no liability for use 
 - [Payment Request](https://docs.wipayfinancial.com/payments-api/payment-request)
 - [Transaction Response and hash verification](https://docs.wipayfinancial.com/payments-api/transaction-response)
 - [Platforms and Environments](https://docs.wipayfinancial.com/platforms-and-environments)
+
