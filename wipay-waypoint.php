@@ -3,7 +3,7 @@
  * Plugin Name: Waypoint WiPay for WooCommerce
  * Plugin URI: https://waypointt.com/
  * Description: Hosted card checkout for WooCommerce using WiPay's Payments API.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * WC requires at least: 8.0
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WAYPOINT_WIPAY_VERSION', '1.0.0' );
+define( 'WAYPOINT_WIPAY_VERSION', '1.0.1' );
 define( 'WAYPOINT_WIPAY_ID', 'waypoint_wipay' );
 
 add_action( 'before_woocommerce_init', static function () {
@@ -210,8 +210,11 @@ add_action( 'plugins_loaded', static function () {
 				$endpoint,
 				array(
 					'timeout'     => 25,
-					'headers'     => array( 'Accept' => 'application/json' ),
-					'body'        => $payload,
+					'headers'     => array(
+						'Accept'       => 'application/json',
+						'Content-Type' => 'application/json; charset=utf-8',
+					),
+					'body'        => wp_json_encode( $payload ),
 					'redirect'    => 0,
 					'data_format' => 'body',
 				)
@@ -250,7 +253,12 @@ add_action( 'plugins_loaded', static function () {
 				'zipcode' => array( $order->get_billing_postcode(), 10 ),
 				'country' => array( strtoupper( $order->get_billing_country() ), 2 ),
 			);
+			$has_first_name = '' !== trim( (string) $order->get_billing_first_name() );
+			$has_address_1  = '' !== trim( (string) $order->get_billing_address_1() );
 			foreach ( $optional as $field => $value ) {
+				if ( ( 'lname' === $field && ! $has_first_name ) || ( 'addr2' === $field && ! $has_address_1 ) ) {
+					continue;
+				}
 				$text = sanitize_text_field( (string) $value[0] );
 				if ( '' !== $text ) {
 					$payload[ $field ] = function_exists( 'mb_substr' ) ? mb_substr( $text, 0, $value[1] ) : substr( $text, 0, $value[1] );
@@ -346,3 +354,4 @@ add_action( 'plugins_loaded', static function () {
 		return $gateways;
 	} );
 }, 11 );
+
