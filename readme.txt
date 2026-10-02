@@ -4,7 +4,7 @@ Tags: woocommerce, payment-gateway, wipay, hosted-checkout
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,9 @@ This software is provided "as is", without warranty of any kind. Waypoint accept
 WiPay is a trademark of its respective owner. Mention of WiPay identifies the payment service this independent plugin connects to and does not imply endorsement.
 
 == Changelog ==
+
+= 1.0.3 =
+* Fix WooCommerce Checkout Blocks payment method detection so the gateway is available in block checkout.
 
 = 1.0.2 =
 * Add the WooCommerce Checkout Blocks server and client payment method integration.
