@@ -3,7 +3,7 @@
  * Plugin Name: Waypoint WiPay for WooCommerce
  * Plugin URI: https://waypointt.com/
  * Description: Hosted card checkout for WooCommerce using WiPay's Payments API.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * WC requires at least: 8.0
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WAYPOINT_WIPAY_VERSION', '1.0.3' );
+define( 'WAYPOINT_WIPAY_VERSION', '1.0.4' );
 define( 'WAYPOINT_WIPAY_ID', 'waypoint_wipay' );
 define( 'WAYPOINT_WIPAY_PLUGIN_FILE', __FILE__ );
 
