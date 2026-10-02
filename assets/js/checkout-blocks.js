@@ -37,6 +37,7 @@
 	registerPaymentMethod( {
 		name: 'waypoint_wipay',
 		label: createElement( Label ),
+		ariaLabel: title,
 		content: createElement( Content ),
 		edit: createElement( Content ),
 		canMakePayment: function () {
