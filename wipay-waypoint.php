@@ -3,7 +3,7 @@
  * Plugin Name: Waypoint WiPay for WooCommerce
  * Plugin URI: https://waypointt.com/
  * Description: Hosted card checkout for WooCommerce using WiPay's Payments API.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * WC requires at least: 8.0
@@ -17,14 +17,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WAYPOINT_WIPAY_VERSION', '1.0.1' );
+define( 'WAYPOINT_WIPAY_VERSION', '1.0.2' );
 define( 'WAYPOINT_WIPAY_ID', 'waypoint_wipay' );
+define( 'WAYPOINT_WIPAY_PLUGIN_FILE', __FILE__ );
 
 add_action( 'before_woocommerce_init', static function () {
 	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, false );
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 	}
+} );
+
+add_action( 'woocommerce_blocks_loaded', static function () {
+	if ( ! class_exists( '\\Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\AbstractPaymentMethodType' ) ) {
+		return;
+	}
+
+	require_once __DIR__ . '/includes/class-waypoint-wipay-blocks-support.php';
+
+	add_action( 'woocommerce_blocks_payment_method_type_registration', static function ( $payment_method_registry ) {
+		$payment_method_registry->register( new Waypoint_WiPay_Blocks_Support() );
+	} );
 } );
 
 add_action( 'plugins_loaded', static function () {
