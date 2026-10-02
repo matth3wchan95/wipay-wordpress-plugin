@@ -4,7 +4,7 @@ An independent WooCommerce payment gateway that sends customers to WiPay's hoste
 
 ## Status
 
-Initial rebuild, version 1.0.0. This package has not been run through a WordPress/WooCommerce environment or WiPay sandbox. Keep it disabled for live payments until local code review and sandbox known-answer tests pass.
+Updated rebuild, version 1.0.4. This release adds the required accessibility label for WooCommerce Checkout Blocks and reads gateway presentation settings from WooCommerce's payment method data. Version 1.0.3 fixed block checkout discovery after staging revealed an escaped class-name check. Classic and block checkout flows still need end-to-end sandbox verification before live use.
 
 ## Safety design
 
@@ -30,16 +30,15 @@ define( 'WAYPOINT_WIPAY_API_KEY', 'your-live-key' );
 
 Do not commit `wp-config.php` or disclose the live key. Enable the gateway only when the site's own tests and merchant configuration are complete.
 
-The endpoint host is selected from WiPay's documented country/environment map. This version supports TT, JM, BB, GY, and GD. It enforces the supplied TTD 5.00 minimum for the TT/TTD combination. It does not support checkout blocks or automated refunds.
+The endpoint host is selected from WiPay's documented country/environment map. This version supports TT, JM, BB, GY, and GD. It enforces the supplied TTD 5.00 minimum for the TT/TTD combination. It supports classic checkout and WooCommerce Checkout Blocks. Automated refunds are not supported.
 
 ## API behavior
 
-The plugin uses `POST https://{country-host}/plugins/payments/request`, with documented field names including `account_number`, `country_code`, `currency`, `environment`, `fee_structure`, `method`, `order_id`, `origin`, `response_url`, and `total`. Billing prefill uses `addr1`/`addr2`; no unsupported `company` or `addr_1`/`addr_2` fields are sent. WiPay's response is verified on the server using its documented MD5 formula and the original order total.
+The plugin uses `POST https://{country-host}/plugins/payments/request` with an `application/json` request body and `Accept: application/json`, matching WiPay's current examples. The endpoint and sandbox host mapping already matched the documentation. The request includes documented fields such as `account_number`, `country_code`, `currency`, `environment`, `fee_structure`, `method`, `order_id`, `origin`, `response_url`, and `total`. Billing prefill uses `addr1`/`addr2`; dependent `lname` and `addr2` values are omitted unless their required `fname` and `addr1` are present. WiPay's response is verified on the server using its documented MD5 formula and the original order total.
 
 ## Limits
 
 - No automated refunds, chargeback webhooks, or transaction retrieval reconciliation.
-- Classic checkout only.
 - Stock availability is checked when a successful callback arrives; if the order is no longer payable or stock is insufficient, the plugin records an owner-facing flag/note and does not complete fulfillment automatically.
 - The merchant must review WiPay settlement and reconcile refunds/disputes manually.
 
@@ -53,3 +52,4 @@ GPL-2.0-or-later. See [LICENSE](LICENSE). Waypoint accepts no liability for use 
 - [Payment Request](https://docs.wipayfinancial.com/payments-api/payment-request)
 - [Transaction Response and hash verification](https://docs.wipayfinancial.com/payments-api/transaction-response)
 - [Platforms and Environments](https://docs.wipayfinancial.com/platforms-and-environments)
+
