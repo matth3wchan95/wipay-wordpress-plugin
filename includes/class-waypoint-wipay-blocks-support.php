@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Exposes the hosted WiPay gateway to the Cart and Checkout blocks.
  */
-final class Waypoint_WiPay_Blocks_Support extends \\Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\AbstractPaymentMethodType {
+final class Waypoint_WiPay_Blocks_Support extends \Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType {
 	/**
 	 * Payment method ID; must match the WooCommerce gateway ID and JS registration.
 	 *
