@@ -4,7 +4,7 @@ Tags: woocommerce, payment-gateway, wipay, hosted-checkout
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,7 +40,7 @@ This version offers BB, GD, GY, JM, and TT, matching WiPay's current published P
 - Live API key: server-side `WAYPOINT_WIPAY_API_KEY` constant in `wp-config.php`; the key is not stored in plugin settings or printed into JavaScript.
 - Diagnostics: optional, off by default. Logs contain event names, order IDs, and HTTP status codes only; customer data, request/response bodies, hashes, and keys are not logged.
 
-The plugin supports classic WooCommerce checkout and declares HPOS compatibility. Checkout Blocks are not supported in this version. Refunds must be handled through the merchant's WiPay account and recorded in WooCommerce manually.
+The plugin supports classic WooCommerce checkout and WooCommerce Checkout Blocks, and declares HPOS compatibility. Refunds must be handled through the merchant's WiPay account and recorded in WooCommerce manually. Both checkout flows require sandbox verification before live use.
 
 == Disclaimer ==
 
@@ -49,6 +49,10 @@ This software is provided "as is", without warranty of any kind. Waypoint accept
 WiPay is a trademark of its respective owner. Mention of WiPay identifies the payment service this independent plugin connects to and does not imply endorsement.
 
 == Changelog ==
+
+= 1.0.2 =
+* Add the WooCommerce Checkout Blocks server and client payment method integration.
+* Declare Cart and Checkout Blocks compatibility while retaining classic checkout support.
 
 = 1.0.1 =
 * Send the Payments API request as JSON, matching WiPay's documented request format.
