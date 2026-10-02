@@ -4,7 +4,7 @@ Tags: woocommerce, payment-gateway, wipay, hosted-checkout
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,3 +64,8 @@ WiPay is a trademark of its respective owner. Mention of WiPay identifies the pa
 = 1.0.0 =
 * Initial Waypoint-maintained release.
 
+== Changelog ==
+
+= 1.0.4 =
+* Add the required accessibility label for WooCommerce Checkout Blocks.
+* Read gateway presentation settings from WooCommerce's payment method data.
