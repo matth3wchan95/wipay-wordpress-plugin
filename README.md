@@ -4,7 +4,7 @@ An independent WooCommerce payment gateway that sends customers to WiPay's hoste
 
 ## Status
 
-Updated rebuild, version 1.0.3. This release adds a WooCommerce Checkout Blocks payment method integration while retaining classic checkout support. Block checkout discovery was fixed in 1.0.3 after staging revealed an escaped class-name check. The block and classic flows still need end-to-end sandbox verification before live use.
+Updated rebuild, version 1.0.4. This release adds the required accessibility label for WooCommerce Checkout Blocks and reads gateway presentation settings from WooCommerce's payment method data. Version 1.0.3 fixed block checkout discovery after staging revealed an escaped class-name check. Classic and block checkout flows still need end-to-end sandbox verification before live use.
 
 ## Safety design
 
