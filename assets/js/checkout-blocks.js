@@ -12,7 +12,8 @@
 	}
 
 	const registerPaymentMethod = window.wc.wcBlocksRegistry.registerPaymentMethod;
-	const settings = window.wc.wcSettings.getSetting( 'waypoint_wipay_data', {} );
+	const paymentMethodData = window.wc.wcSettings.getSetting( 'paymentMethodData', {} );
+	const settings = paymentMethodData.waypoint_wipay || {};
 	const createElement = window.wp.element.createElement;
 	const decodeEntities =
 		window.wp.htmlEntities && window.wp.htmlEntities.decodeEntities
