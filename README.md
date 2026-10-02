@@ -4,7 +4,7 @@ An independent WooCommerce payment gateway that sends customers to WiPay's hoste
 
 ## Status
 
-Updated rebuild, version 1.0.1. The checkout request now uses JSON as shown in WiPay's current Payment Request examples. This package still needs a successful end-to-end sandbox transaction and callback verification before live use.
+Updated rebuild, version 1.0.2. This release adds a WooCommerce Checkout Blocks payment method integration while retaining classic checkout support. The block and classic flows still need end-to-end sandbox verification before live use.
 
 ## Safety design
 
@@ -30,7 +30,7 @@ define( 'WAYPOINT_WIPAY_API_KEY', 'your-live-key' );
 
 Do not commit `wp-config.php` or disclose the live key. Enable the gateway only when the site's own tests and merchant configuration are complete.
 
-The endpoint host is selected from WiPay's documented country/environment map. This version supports TT, JM, BB, GY, and GD. It enforces the supplied TTD 5.00 minimum for the TT/TTD combination. It does not support checkout blocks or automated refunds.
+The endpoint host is selected from WiPay's documented country/environment map. This version supports TT, JM, BB, GY, and GD. It enforces the supplied TTD 5.00 minimum for the TT/TTD combination. It supports classic checkout and WooCommerce Checkout Blocks. Automated refunds are not supported.
 
 ## API behavior
 
@@ -39,7 +39,6 @@ The plugin uses `POST https://{country-host}/plugins/payments/request` with an `
 ## Limits
 
 - No automated refunds, chargeback webhooks, or transaction retrieval reconciliation.
-- Classic checkout only.
 - Stock availability is checked when a successful callback arrives; if the order is no longer payable or stock is insufficient, the plugin records an owner-facing flag/note and does not complete fulfillment automatically.
 - The merchant must review WiPay settlement and reconcile refunds/disputes manually.
 
